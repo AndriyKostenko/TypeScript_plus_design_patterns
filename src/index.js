@@ -29,13 +29,14 @@ function calculate_area(length, width) {
 }
 // Rest parameters
 function addAll() {
+    var _a;
     var nums = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         nums[_i] = arguments[_i];
     }
     var result = 0;
     for (var i = 0; i < nums.length; i++) {
-        result += nums[i];
+        result += (_a = nums[i]) !== null && _a !== void 0 ? _a : 0;
     }
     return result;
 }
@@ -191,6 +192,7 @@ var User = /** @class */ (function () {
     };
     return User;
 }());
+// Generic class for collection of items
 var Collection = /** @class */ (function () {
     function Collection() {
         this.data = [];
@@ -200,6 +202,10 @@ var Collection = /** @class */ (function () {
     };
     return Collection;
 }());
+var getFullName2 = function (firstname, lastname) {
+    return "".concat(firstname, " ").concat(lastname);
+};
+console.log(getFullName2('Bob', "Bobovich"));
 var bookCollection = new Collection();
 bookCollection.add({ title: "TypeScript Basics", author: "Andriy", pages: 250 });
 console.log(bookCollection.data);

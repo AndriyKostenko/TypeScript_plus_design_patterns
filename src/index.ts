@@ -14,6 +14,7 @@ function calculate_area(length: number =24, width: number = 10): number {
     if (width === undefined) {
         width = 10
     }
+    
     return length * width
 }
 
@@ -21,7 +22,7 @@ function calculate_area(length: number =24, width: number = 10): number {
 function addAll(...nums: number[]): number {
     let result: number = 0;
     for (let i = 0; i< nums.length; i++) {
-        result += nums[i];
+        result += nums[i] ?? 0;
     }
     return result;
 }
@@ -251,6 +252,13 @@ class Collection<T> {
         this.data.push(item);
     }
 }
+
+const getFullName2 = (firstname: string, lastname: string): string => {
+    return `${firstname} ${lastname}`
+}
+
+console.log(getFullName2('Bob', "Bobovich"))
+
 const bookCollection = new Collection<Book>();
 bookCollection.add({title: "TypeScript Basics", author: "Andriy", pages: 250});
 console.log(bookCollection.data);
