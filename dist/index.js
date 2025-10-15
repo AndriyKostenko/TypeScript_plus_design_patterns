@@ -186,6 +186,46 @@ class Collection {
 const getFullName2 = (firstname, lastname) => {
     return `${firstname} ${lastname}`;
 };
+// array
+const someArray = ['dsd', 'dsd'];
+// tuples in typescript
+const skills = [1, "fdf"];
+// same protected tuple using generics
+const newSkills = [2, 4, 5, 6];
+// enums for fixed set of constants
+var StatusCodes;
+(function (StatusCodes) {
+    StatusCodes[StatusCodes["SUCCESS"] = 1] = "SUCCESS";
+    StatusCodes[StatusCodes["IN_PROGRESS"] = 2] = "IN_PROGRESS";
+    StatusCodes[StatusCodes["FAILED"] = 3] = "FAILED";
+})(StatusCodes || (StatusCodes = {}));
+var QuestionStatus;
+(function (QuestionStatus) {
+    QuestionStatus["PUBLISHED"] = "published";
+    QuestionStatus["DRAFT"] = "draft";
+    QuestionStatus["DELETED"] = "deleted";
+})(QuestionStatus || (QuestionStatus = {}));
+// parametrized function with return type
+async function getFaqs(req) {
+    const res = await fetch('/faqs', {
+        method: 'POST',
+        body: JSON.stringify(req)
+    });
+    const data = await res.json();
+    return data;
+}
+function multiply(a, b) {
+    if (!b) {
+        return a * a;
+    }
+    return a * b;
+}
+function testPass(user) {
+    // optional chaining to safely access nested properties
+    const password = user.password?.type;
+    // nullish coalescing to provide a default value if password is null or undefined
+    return password ?? 'no password';
+}
 console.log(getFullName2('Bob', "Bobovich"));
 const bookCollection = new Collection();
 bookCollection.add({ title: "TypeScript Basics", author: "Andriy", pages: 250 });

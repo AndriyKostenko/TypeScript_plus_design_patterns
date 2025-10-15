@@ -45,6 +45,7 @@ function neverReturns(): never {
 }
 // Union types
 let myVar: string | number = 'rid';
+
 // Literal types
 let direction: "left" | "right" | "up" | "down" = "left";
 
@@ -257,8 +258,131 @@ const getFullName2 = (firstname: string, lastname: string): string => {
     return `${firstname} ${lastname}`
 }
 
-console.log(getFullName2('Bob', "Bobovich"))
 
+
+// array
+const someArray: string[] = ['dsd', 'dsd']
+
+// tuples in typescript
+const skills: readonly [number, string] = [1, "fdf"]
+
+// same protected tuple using generics
+const newSkills: ReadonlyArray<number> = [2,4,5,6]
+
+
+// enums for fixed set of constants
+enum StatusCodes {
+    SUCCESS = 1,
+    IN_PROGRESS = 2,
+    FAILED = 3
+}
+
+enum QuestionStatus {
+    PUBLISHED = 'published',
+    DRAFT = 'draft',
+    DELETED = 'deleted'
+}
+
+
+// parametrized function with return type
+async function getFaqs( req: {
+    topicId: number;
+    status: QuestionStatus;
+}) : Promise<{
+    question: string;
+    answer: string;
+    tags: string[];
+    likes: number;
+    status?: QuestionStatus;
+}[]> {
+    const res = await fetch('/faqs', {
+        method: 'POST',
+        body: JSON.stringify(req)
+    });
+
+    const data: any = await res.json();
+    return data;
+}
+
+
+function multiply(a: number, b: number): number {
+    if (!b) {
+        return a * a;
+    }
+    return a * b;
+}
+
+interface UserProfile {
+    login : string;
+    password?: {
+        type: 'oauth' | 'email';
+    }
+}
+
+function testPass(user: UserProfile): string {
+    // optional chaining to safely access nested properties
+    const password = user.password?.type;
+    // nullish coalescing to provide a default value if password is null or undefined
+    return password ?? 'no password';
+}
+
+type voidFunc = () => void;
+
+const f1: voidFunc = () => {
+
+}
+
+const f2: voidFunc = () => {
+    return true
+}
+
+// unknown type
+let input: unknown;
+
+
+async function getData(){
+    try {
+        await fetch('')
+    } catch (error) {
+        if (error instanceof Error) {
+            console.log(error.message);
+        }
+    }
+}
+
+function generateError(message: string): never {
+    throw new Error(message);
+}
+
+type paymentAction = 'refund' | 'checkout' | 'reject';
+
+function processAction(action: paymentAction) {
+    switch (action) {
+        case 'refund':
+            console.log("Processing refund...");
+            break;
+        case 'checkout':
+            console.log("Processing checkout...");
+            break;
+        case 'reject':
+            console.log("Processing rejection...");
+            break;
+        default:
+            // Using never type to ensure all cases are handled
+            const exhaustiveCheck: never = action;
+            throw new Error(`Unhandled action: ${exhaustiveCheck}`);
+    }
+}
+
+function isString(x: string | number): boolean {
+    if (typeof x === 'string') {
+        return true;
+    } else if (typeof x === 'number') {
+        return false;
+    }
+}
+
+console.log(getFullName2('Bob', "Bobovich"))
 const bookCollection = new Collection<Book>();
 bookCollection.add({title: "TypeScript Basics", author: "Andriy", pages: 250});
 console.log(bookCollection.data);
